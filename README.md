@@ -1,1 +1,3 @@
-React-new-post
+## Испоьзование API новой почты в React-приложении
+
+Используется [официальная документация](https://devcenter.novaposhta.ua/)
