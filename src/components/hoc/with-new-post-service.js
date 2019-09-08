@@ -8,7 +8,7 @@ const withNewPostService = () => (Wrapped) => {
                 {
                     (newPostService) => {
                     return (<Wrapped {...props}
-                                    NewPostService={newPostService} />);
+                                    newPostService={newPostService} />);
                     }
                 }
             </NewPostServiceConsumer>

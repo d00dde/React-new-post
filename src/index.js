@@ -6,10 +6,11 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import App from './components/app';
 import ErrorBoundry from './components/error-boundry';
 import NewPostService from './services/new-post-service';
+import TestNewPostService from './services/test-new-post-service';
 import { NewPostServiceProvider } from './components/new-post-service-context';
 import store from './store';
 
-const newPostService = new NewPostService ();
+const newPostService = new TestNewPostService ();
 
 ReactDOM.render (
     <Provider store={store}>
