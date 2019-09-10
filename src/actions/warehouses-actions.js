@@ -29,4 +29,21 @@ const fetchWarehouses = (newPostService, dispatch) => (cityName) => {
 			});
 }
 
-export default fetchWarehouses
+const warehouseChoosed = (warehouse) => {
+	return {
+		type:'WAREHOUSE_CHOOSED',
+		payload: warehouse
+	}
+}
+
+const clearWarehouse = () => {
+	return {
+		type:'CLEAR_WAREHOUSE'
+	}
+}
+
+export {
+	warehouseChoosed,
+	fetchWarehouses,
+	clearWarehouse
+}

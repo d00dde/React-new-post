@@ -28,12 +28,6 @@ export default class NewPostService {
   		calledMethod: 'getAreas'
   	});
   	return districts.data
-  	return districts.data.map((district) => {
-  		return {
-  			name: district.Description,
-  			ref: district.Ref
-  		}
-		});
   }
 
   getCities = async () => {

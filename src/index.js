@@ -10,7 +10,7 @@ import TestNewPostService from './services/test-new-post-service';
 import { NewPostServiceProvider } from './components/new-post-service-context';
 import store from './store';
 
-const newPostService = new TestNewPostService ();
+const newPostService = new NewPostService ();
 
 ReactDOM.render (
     <Provider store={store}>

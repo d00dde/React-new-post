@@ -4,7 +4,8 @@ import './cities-input.css'
 import { withNewPostService } from '../hoc'
 import { connect } from 'react-redux';
 import { compose } from '../../utils/';
-import { fetchCities } from '../../actions';
+import { fetchCities, clearWarehouse } from '../../actions';
+import { TextInput } from 'react-materialize';
 
 class CitiesInput extends Component {
 
@@ -26,20 +27,16 @@ class CitiesInput extends Component {
 		
 		return(
 			<div className='search-city'>
-				<div className='input-field col s6'>
-					<input id='search-city'
-								 className='validate'
-								 onChange={this.inputCityName}
-							 	 value ={this.state.value}
-							 	 onKeyPress={this.isSubmit}/>
-				<label htmlFor='search-city'> 
-					Введите название города
-				</label>
-			</div>
-				<ul>
-					{searchHint}
-				</ul>
-
+					<TextInput
+						className='city-input'
+						label='Выберите город'
+						onChange={this.inputCityName}
+						value ={this.state.value}
+						onKeyPress={this.isSubmit}>
+						<ul className='hint'>
+							{searchHint}
+						</ul>
+					</TextInput>
 			</div>
 		)
 	}
@@ -78,7 +75,6 @@ class CitiesInput extends Component {
 			return
 		if(this.state.value === '')
 			return
-		const cities = this.props.cities;
 		if(!this.props.cities.includes(this.state.value))
 			return
 		this.cityChoosed(this.state.value);
@@ -94,7 +90,8 @@ class CitiesInput extends Component {
 			filter: [],
 			value: cityName
 		});
-		this.props.fetchCity(cityName)
+		this.props.fetchCity(cityName);
+		this.props.clearWarehouse();
 	}
 
 
@@ -111,7 +108,8 @@ const mapStateToProps = (state) => {
 const mapActionsToProps = (dispatch, ownProps) => {
 	return {
 		fetchCities: fetchCities(ownProps.newPostService.getCities, dispatch),
-		fetchCity: fetchCities(ownProps.newPostService.getCity, dispatch)
+		fetchCity: fetchCities(ownProps.newPostService.getCity, dispatch),
+		clearWarehouse: clearWarehouse
 	}
 }
 

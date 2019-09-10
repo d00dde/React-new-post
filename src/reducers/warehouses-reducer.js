@@ -4,11 +4,12 @@ const warehousesReducer = (state, action) => {
 			warehouses: [],
 			loading: false,
 			error: false,
+			warehouse: {}
 		}
 	}
 	switch(action.type) {
 		case 'FETCH_WAREHOUSES_REQUEST':
-	  	return {
+			return {
 	  		...state.warehouses,
 	  		loading: true
 	  	};
@@ -25,6 +26,17 @@ const warehousesReducer = (state, action) => {
 	  		warehouses: [],
 	  		error: action.payload
 	  	}
+	  	case 'WAREHOUSE_CHOOSED' :
+	  		return{
+				...state.warehouses,
+				warehouse: action.payload
+			}
+		case 'CLEAR_WAREHOUSE':
+			return {
+				...state,
+				warehouse: {}
+			}
+
 		default: return state.warehouses;
 	}
 }

@@ -1,8 +1,10 @@
 import fetchCities from './cities-actions';
-import fetchWarehouses from './warehouses-actions';
+import { fetchWarehouses, warehouseChoosed, clearWarehouse } from './warehouses-actions';
 
 export {
 	fetchCities,
-	fetchWarehouses
+	fetchWarehouses,
+	warehouseChoosed,
+	clearWarehouse
 }
 
