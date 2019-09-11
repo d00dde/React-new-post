@@ -18,14 +18,17 @@ const fetchCitiesFailure = (error) => {
 	}
 }
 
+
 const fetchCities = (request, dispatch) => (name) => {
 	dispatch(fetchCitiesRequest());
 	request(name)
 			.then((data) => {
 					if(Array.isArray(data))
 						dispatch(fetchCitiesSuccess(data));
-					else
+					else{
 						dispatch(fetchCitySuccess(data));
+
+					}
 			})
 			.catch((error) => {
 				dispatch(fetchCitiesFailure(error));

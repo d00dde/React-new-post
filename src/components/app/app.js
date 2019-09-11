@@ -21,13 +21,13 @@ const App = (props) => {
     lng: +props.warehouse.Longitude
   };
   return (
-  	<div className='container row'>
+  	<div className='container app row'>
       <Header />
-      <div className="col s6 left-column">
+      <div className="col s12 m12 l6 left-column">
         <CitiesInput />
         <Warehouses />
       </div>
-      <div className="col s6 right-column">
+      <div className="col s12 m12 l6 right-column">
         <Map center={center} />
         <Details warehouse = {props.warehouse}/>
       </div>
