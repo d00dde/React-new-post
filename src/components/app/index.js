@@ -13,11 +13,11 @@ export default () => {
   return (
   	<div className='container app row'>
       <Header />
-      <div className="col m12 l6 left-column">
+      <div className="col s12 m12 l6 left-column">
         <CitiesInput />
         <Warehouses />
       </div>
-      <div className="col m12 l6 right-column">
+      <div className="col s12 m12 l6 right-column">
         <Map />
         <Details />
       </div>
