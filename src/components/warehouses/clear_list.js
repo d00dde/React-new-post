@@ -1,19 +1,27 @@
 import React from 'react';
-import withPagination from './pagination/with-pagination'
+import { withPagination } from '../hoc';
+import { Checkbox } from 'react-materialize';
 import './warehouses.css'
 
-const Warehouses = ({ page, cityName, onClickItem }) => {
+const List = ({ data, cityName, onClickItem, onCheckType }) => {
 
-		const list = page.map(({ SiteKey, ShortAddressRu, Number }) => {
+		let list = data.map(({ SiteKey, ShortAddressRu, Number }) => {
 			return <a className="collection-item"
-					  href='#'
 					  key={SiteKey}
 					  onClick={() => onClickItem(SiteKey)}
 					>№{Number} {ShortAddressRu}</a>
 		});
+		if(data.length === 0) 
+			list = <h3>Ничего не найдено.</h3>
 		return(
 			<div className='warehouse-list'>
-				<h4>{cityName}</h4>
+				<div className='row'>
+					<div className ='city-name'>{cityName}</div>
+					<Checkbox value="Red" 
+						  label="Только грузовые"
+						  onChange={(e) => onCheckType(e.target.checked)} />
+				</div>
+
 				<div className="collection">
 					{list}
 				</div>
@@ -21,4 +29,4 @@ const Warehouses = ({ page, cityName, onClickItem }) => {
 		);
 }
 
-export default withPagination(Warehouses);
+export default withPagination(List);

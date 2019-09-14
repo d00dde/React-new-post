@@ -1,6 +1,7 @@
 import React from'react';
-
 import './details.css';
+
+import { connect } from 'react-redux';
 
 const Details = (props) => {
   if(!props.warehouse.SiteKey)
@@ -34,4 +35,11 @@ const Details = (props) => {
   )
 }
 
-export default Details;
+const mapStateToProps = (state) => {
+  return {
+    warehouse: state.warehouses.warehouse,
+  }
+}
+
+
+export default connect(mapStateToProps)(Details);

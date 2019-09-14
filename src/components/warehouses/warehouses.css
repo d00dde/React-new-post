@@ -1,12 +1,30 @@
 .warehouse-list {
-    min-height: 900px;
+    min-height: 500px;
 }
 
 .warehouse-list .collection-item{
     cursor: pointer;
 }
 
-.warehouse-list h4 {
+.warehouse-list .row {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: space-between;
+}
+
+.warehouse-list .city-name {
+    font-size: 25px;
     padding-left: 25px;
     color: #d0181e;
+}
+
+.warehouse-list .collection h3 {
+	color: #d0181e;
+}
+
+.warehouse-list .collection {
+	border: none;
 }

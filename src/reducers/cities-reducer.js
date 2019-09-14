@@ -27,10 +27,22 @@ const citiesReducer = (state, action) => {
 	  		cities: [],
 	  		error: action.payload
 	  	}
+	  case 'FETCH_CITY_REQUEST':
+	  	return {
+	  		...state.citiesInput,
+	  		loading: true
+	  	};
 	  case 'FETCH_CITY_SUCCESS':
 	  	return{
 	  		...state.citiesInput,
 	  		city: action.payload
+	  	}
+	  case 'FETCH_CITY_FAILURE':
+	  	return {
+	  		...state.citiesInput,
+	  		loading: false,
+	  		city: {},
+	  		error: action.payload
 	  	}
 		default: return state.citiesInput;
 	}

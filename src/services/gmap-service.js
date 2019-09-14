@@ -15,6 +15,8 @@ export default class GmapService {
   }
 
   setCenter = (center) => {
+    if(!center)
+      return;
     this._map = new window.google.maps.Map(document.getElementById('map'), {
       zoom: 16,
       center: center

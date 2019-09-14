@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Spinner from '../spinner';
-import Pagination from '../pagination'
+import List from './clear_list';
+
 import './warehouses.css'
 
 
@@ -12,8 +13,7 @@ import { fetchWarehouses, warehouseChoosed } from '../../actions';
 class Warehouses extends Component {
 
 	state = {
-		count: 10,
-		activePage: 0
+		cargoOnly : false
 	}
 
 	componentDidUpdate (prevProps) {
@@ -24,7 +24,8 @@ class Warehouses extends Component {
 		if(prevCityName === cityName)
 			return;
 		this.props.fetchWarehouses(cityName);
-		this.setState({activePage: 0});
+		this.checkType(false);
+
 	}
 
 	render () {
@@ -32,28 +33,13 @@ class Warehouses extends Component {
 			return null;
 		if(this.props.loading)
 			return <Spinner />
-			const page = this.getPage ( this.props.warehouses,
-										this.state.count,
-										this.state.activePage);
-			const totalPages = Math.ceil(this.props.warehouses.length/this.state.count);
-			const warehousesList = page.map(({ SiteKey, ShortAddressRu, Number }) => {
-			return <a className="collection-item"
-					  href='#'
-					  key={SiteKey}
-					  onClick={() => this.chooseWarehouse(SiteKey)}
-					>№{Number} {ShortAddressRu}</a>
-		});
-		return(
-			<div className='warehouse-list'>
-				<h4>{this.props.city.data[0].DescriptionRu}</h4>
-				<div className="collection">
-					{warehousesList}
-				</div>
-				<Pagination totalPages ={totalPages}
-							activePage={this.state.activePage}
-							onPageChecked={this.onPageChecked}/>
-			</div>
-		);
+		let warehouses = this.props.warehouses;
+		if(this.state.cargoOnly)
+			warehouses = this.props.warehouses.filter(({ PlaceMaxWeightAllowed }) => +PlaceMaxWeightAllowed > 900);
+		return <List data={warehouses}
+					 cityName={this.props.city.data[0].Description}
+					 onClickItem={this.chooseWarehouse}
+					 onCheckType={this.checkType}/>
 	}
 
 	chooseWarehouse = (SiteKey) => {
@@ -61,25 +47,8 @@ class Warehouses extends Component {
 		this.props.warehouseChoosed(warehouse);
 	}
 
-	getPage = (warehouses, count, number) => {
-		return warehouses.slice(count*number, count*(number+1));
-	}
-
-	onPageChecked = (number) => {
-		let newPage;
-		switch (number) {
-			case '-1':
-				newPage = this.state.activePage - 1;
-				break;
-			case '+1':
-				newPage = this.state.activePage + 1;
-				break;
-			default:
-				newPage = +number;
-		}
-		this.setState({
-			activePage: newPage
-		})
+	checkType = (flag) => {
+		this.setState({cargoOnly : flag})
 	}
 }
 
@@ -95,13 +64,11 @@ const mapStateToProps = (state) => {
 
 const mapActionsToProps = (dispatch, ownProps) => {
 	return {
-		fetchWarehouses: fetchWarehouses(ownProps.newPostService, dispatch),
+		fetchWarehouses: fetchWarehouses(ownProps.newPostService.getWarehouses, dispatch),
 		warehouseChoosed:  (warehouse) => dispatch(warehouseChoosed(warehouse))
 	}
 }
 
-export default compose(
-									withNewPostService(),
-									connect(mapStateToProps,
-													mapActionsToProps)
-									)(Warehouses);
+export default compose(withNewPostService(),
+						connect(mapStateToProps,mapActionsToProps)
+					  )(Warehouses);
